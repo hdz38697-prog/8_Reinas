@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocho Reinas</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+
+<div class="game-wrapper">
+
+    <!-- FILA PRINCIPAL: tablero + panel derecho -->
+    <div class="game-row">
+
+        <!-- TABLERO -->
+        <div class="tablero-wrap">
+            <table id="tablero">
+                <!-- JS genera las filas -->
+            </table>
+        </div>
+
+        <!-- PANEL DERECHO -->
+        <div class="panel-derecho">
+
+            <!-- Tipo de reina -->
+            <div class="panel-card">
+                <h3>Elige tu reina</h3>
+                <div class="reina-options">
+                    <button class="btn-reina activo" onclick="elegirReina('reina.png', this)">
+                        <div class="preview" style="background-image:url('IMG/reina.png')"></div>
+                        Clásica
+                    </button>
+                    <button class="btn-reina" onclick="elegirReina('reina2.png', this)">
+                        <div class="preview" style="background-image:url('IMG/reina2.png')"></div>
+                        Alternativa 1
+                    </button>
+                    <button class="btn-reina" onclick="elegirReina('reina3.png', this)">
+                        <div class="preview" style="background-image:url('IMG/reina3.png')"></div>
+                        Alternativa 2
+                    </button>
+                </div>
+            </div>
+
+            <!-- Soluciones -->
+            <div class="panel-card">
+                <div class="solution-info">
+                    <span class="sol-counter" id="sol-counter">3 / 92</span>
+                    <span class="sol-label">soluciones</span>
+                </div>
+                <br>
+                <div class="nav-row">
+                    <button class="btn-arrow" onclick="solAnterior()">&#8678;</button>
+                    <button class="btn-arrow" onclick="solSiguiente()">&#8680;</button>
+                </div>
+                <br>
+                <button class="btn-orange" onclick="mostrarSolucionActual()">&#9813; Solución</button>
+            </div>
+
+            <!-- Colores del tablero -->
+            <div class="panel-card">
+                <h3>Color tablero</h3>
+                <div class="color-row">
+                    <label>Clara</label>
+                    <input type="color" id="color1" value="#F5CFA0" oninput="cambiarColor1(this.value)">
+                    <label>Oscura</label>
+                    <input type="color" id="color2" value="#D4944A" oninput="cambiarColor2(this.value)">
+                </div>
+            </div>
+
+            <!-- Reset -->
+            <button class="btn-red" onclick="reiniciarTablero()">&#8635; Reiniciar</button>
+
+        </div>
+    </div>
+
+    <!-- PANEL INFERIOR: íconos de reinas disponibles -->
+    <div class="panel-inferior">
+        <div class="reinas-disponibles" id="reinas-disponibles">
+            <!-- generado por JS -->
+        </div>
+    </div>
+
+</div>
+
+<script src="JS/funciones.js"></script>
+</body>
+</html>

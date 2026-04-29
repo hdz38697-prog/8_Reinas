@@ -1,0 +1,310 @@
+/* =========================
+   VARIABLES Y RESET
+   ========================= */
+:root {
+    --naranja:        #F5A623;
+    --naranja-oscuro: #D4821A;
+    --naranja-panel:  #C97A10;
+    --rojo-btn:       #E53030;
+    --rojo-btn-dark:  #B82222;
+    --blanco:         #FFFFFF;
+    --sombra-btn:     0 5px 0 rgba(0,0,0,0.35);
+    --color-celda1:   #F5CFA0;
+    --color-celda2:   #D4944A;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: var(--naranja);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Nunito', sans-serif;
+    padding: 20px;
+}
+
+/* =========================
+   LAYOUT PRINCIPAL
+   ========================= */
+.game-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.game-row {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+/* =========================
+   TABLERO
+   ========================= */
+.tablero-wrap {
+    background: var(--naranja-oscuro);
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 8px 0 rgba(0,0,0,0.25), inset 0 2px 0 rgba(255,255,255,0.15);
+}
+
+table {
+    border-collapse: collapse;
+    display: block;
+}
+
+td {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    border: none;
+    cursor: pointer;
+    transition: filter 0.1s;
+}
+
+td:hover { filter: brightness(1.15); }
+
+/* Patrón ajedrez */
+tr:nth-child(odd)  td:nth-child(odd),
+tr:nth-child(even) td:nth-child(even) {
+    background-color: var(--color-celda1);
+}
+tr:nth-child(even) td:nth-child(odd),
+tr:nth-child(odd)  td:nth-child(even) {
+    background-color: var(--color-celda2);
+}
+
+/* Reina */
+
+@keyframes popIn {
+    from { transform: scale(0.3); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+}
+
+/* Highlight hover */
+td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
+
+/* =========================
+   PANEL DERECHO
+   ========================= */
+.panel-derecho {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 200px;
+}
+
+.panel-card {
+    background: var(--naranja-panel);
+    border-radius: 14px;
+    padding: 14px 12px;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.12);
+}
+
+.panel-card h3 {
+    font-family: 'Fredoka One', cursive;
+    color: var(--blanco);
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    letter-spacing: 0.5px;
+}
+
+/* Botones de tipo de reina */
+.reina-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.btn-reina {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--naranja-oscuro);
+    border: 3px solid transparent;
+    border-radius: 10px;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: white;
+    font-family: 'Fredoka One', cursive;
+    font-size: 14px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.btn-reina:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 rgba(0,0,0,0.3);
+}
+
+.btn-reina.activo {
+    border-color: #fff;
+    background: #e09020;
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 rgba(0,0,0,0.3);
+}
+
+.btn-reina .preview {
+    width: 36px;
+    height: 36px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+}
+
+/* Contador solución */
+.solution-info {
+    text-align: center;
+    color: white;
+    font-family: 'Fredoka One', cursive;
+}
+
+.sol-counter {
+    font-size: 28px;
+    display: block;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.sol-label {
+    font-size: 12px;
+    opacity: 0.85;
+}
+
+/* Botones naranja */
+.btn-orange {
+    width: 100%;
+    padding: 11px;
+    background: var(--naranja-oscuro);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: var(--sombra-btn);
+    transition: all 0.12s;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+.btn-orange:hover  { filter: brightness(1.1); transform: translateY(-2px); }
+.btn-orange:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.35); }
+
+/* Botón rojo */
+.btn-red {
+    width: 100%;
+    padding: 11px;
+    background: var(--rojo-btn);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 5px 0 var(--rojo-btn-dark);
+    transition: all 0.12s;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+.btn-red:hover  { filter: brightness(1.1); transform: translateY(-2px); }
+.btn-red:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--rojo-btn-dark); }
+
+/* Flechas navegación */
+.nav-row {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-arrow {
+    flex: 1;
+    padding: 11px 0;
+    background: var(--naranja-oscuro);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: var(--sombra-btn);
+    transition: all 0.12s;
+}
+
+.btn-arrow:hover  { filter: brightness(1.15); transform: translateY(-2px); }
+.btn-arrow:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.35); }
+
+/* Colores */
+.color-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+.color-row label {
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.color-row input[type="color"] {
+    width: 34px;
+    height: 28px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 1px;
+    background: transparent;
+}
+
+/* =========================
+   PANEL INFERIOR (REINAS DISPONIBLES)
+   ========================= */
+.panel-inferior {
+    background: var(--naranja-panel);
+    border-radius: 14px;
+    padding: 14px 20px;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.28);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+.reinas-disponibles {
+    display: flex;
+    gap: 4px;
+}
+
+.reina-ico {
+    width: 56px;
+    height: 56px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("IMG/reina.png");
+    opacity: 1;
+    transition: opacity 0.2s;
+}
+
+.reina-ico.usada {
+    opacity: 0.25;
+}
+
+.img-reina {
+    position: absolute;
+    inset: 6px;
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    object-fit: contain;
+    pointer-events: none;
+    animation: popIn 0.2s cubic-bezier(0.34,1.56,0.64,1);
+}
+
