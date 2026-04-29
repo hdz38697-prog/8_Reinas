@@ -1,95 +1,92 @@
-/* =========================
-   VARIABLES Y RESET
-   ========================= */
+/* Variables globales de colores y estilos reutilizables */
 :root {
-    --naranja:        #F5A623;
-    --naranja-oscuro: #D4821A;
-    --naranja-panel:  #C97A10;
-    --rojo-btn:       #E53030;
-    --rojo-btn-dark:  #B82222;
-    --blanco:         #FFFFFF;
-    --sombra-btn:     0 5px 0 rgba(0,0,0,0.35);
-    --color-celda1:   #F5CFA0;
-    --color-celda2:   #D4944A;
+    --naranja:        #F5A623;        /* Color principal de fondo */
+    --naranja-oscuro: #D4821A;        /* Variante más oscura del naranja */
+    --naranja-panel:  #C97A10;        /* Color de paneles */
+    --rojo-btn:       #E53030;        /* Color principal de botones rojos */
+    --rojo-btn-dark:  #B82222;        /* Sombra del botón rojo */
+    --blanco:         #FFFFFF;        /* Color blanco */
+    --sombra-btn:     0 5px 0 rgba(0,0,0,0.35); /* Sombra tipo botón elevado */
+    --color-celda1:   #F5CFA0;        /* Color claro del tablero */
+    --color-celda2:   #D4944A;        /* Color oscuro del tablero */
 }
 
+/* Reset general: elimina márgenes y paddings, y usa box-sizing consistente */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    background: var(--naranja);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Nunito', sans-serif;
-    padding: 20px;
+    background: var(--naranja);           /* Fondo principal */
+    min-height: 100vh;                   /* Altura mínima pantalla completa */
+    display: flex;                       /* Usa flexbox */
+    align-items: center;                /* Centra verticalmente */
+    justify-content: center;            /* Centra horizontalmente */
+    font-family: 'Nunito', sans-serif;  /* Tipografía principal */
+    padding: 20px;                      /* Espaciado interno */
 }
 
-/* =========================
-   LAYOUT PRINCIPAL
-   ========================= */
+/* Contenedor principal del juego */
 .game-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+    display: flex;              /* Flexbox */
+    flex-direction: column;     /* Elementos en columna */
+    align-items: center;        /* Centrado horizontal */
+    gap: 16px;                  /* Espacio entre elementos */
 }
 
+/* Fila principal (tablero + panel) */
 .game-row {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
+    display: flex;              /* Elementos en fila */
+    gap: 16px;                  /* Separación entre elementos */
+    align-items: flex-start;    /* Alineación superior */
 }
 
-/* =========================
-   TABLERO
-   ========================= */
+/* Contenedor del tablero */
 .tablero-wrap {
-    background: var(--naranja-oscuro);
-    border-radius: 12px;
-    padding: 10px;
-    box-shadow: 0 8px 0 rgba(0,0,0,0.25), inset 0 2px 0 rgba(255,255,255,0.15);
+    background: var(--naranja-oscuro); /* Fondo del contenedor */
+    border-radius: 12px;              /* Bordes redondeados */
+    padding: 10px;                   /* Espaciado interno */
+    box-shadow: 0 8px 0 rgba(0,0,0,0.25), inset 0 2px 0 rgba(255,255,255,0.15); /* Sombra externa e interna */
 }
 
 table {
-    border-collapse: collapse;
-    display: block;
+    border-collapse: collapse; /* Elimina espacios entre celdas */
+    display: block;            /* Permite mejor control */
 }
 
+/* Celdas del tablero */
 td {
-    position: relative;
-    width: 72px;
-    height: 72px;
-    border: none;
-    cursor: pointer;
-    transition: filter 0.1s;
+    position: relative;        /* Para posicionar elementos internos */
+    width: 72px;              /* Ancho fijo */
+    height: 72px;             /* Alto fijo */
+    border: none;             /* Sin borde */
+    cursor: pointer;          /* Cursor tipo mano */
+    transition: filter 0.1s;  /* Animación suave */
 }
 
+/* Efecto al pasar el mouse */
 td:hover { filter: brightness(1.15); }
 
-/* Patrón ajedrez */
+/* Patrón tipo ajedrez (celdas claras) */
 tr:nth-child(odd)  td:nth-child(odd),
 tr:nth-child(even) td:nth-child(even) {
     background-color: var(--color-celda1);
 }
+
+/* Patrón tipo ajedrez (celdas oscuras) */
 tr:nth-child(even) td:nth-child(odd),
 tr:nth-child(odd)  td:nth-child(even) {
     background-color: var(--color-celda2);
 }
 
-/* Reina */
-
+/* Animación de aparición */
 @keyframes popIn {
-    from { transform: scale(0.3); opacity: 0; }
-    to   { transform: scale(1);   opacity: 1; }
+    from { transform: scale(0.3); opacity: 0; } /* Inicio pequeño e invisible */
+    to   { transform: scale(1);   opacity: 1; } /* Tamaño normal visible */
 }
 
-/* Highlight hover */
+/* Resaltado al pasar por celdas válidas */
 td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
 
-/* =========================
-   PANEL DERECHO
-   ========================= */
+/* Contenedor del panel derecho */
 .panel-derecho {
     display: flex;
     flex-direction: column;
@@ -97,6 +94,7 @@ td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
     width: 200px;
 }
 
+/* Tarjetas dentro del panel */
 .panel-card {
     background: var(--naranja-panel);
     border-radius: 14px;
@@ -104,6 +102,7 @@ td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
     box-shadow: 0 6px 0 rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.12);
 }
 
+/* Títulos de cada tarjeta */
 .panel-card h3 {
     font-family: 'Fredoka One', cursive;
     color: var(--blanco);
@@ -114,13 +113,14 @@ td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
     letter-spacing: 0.5px;
 }
 
-/* Botones de tipo de reina */
+/* Contenedor de opciones de reina */
 .reina-options {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
+/* Botón de selección de reina */
 .btn-reina {
     display: flex;
     align-items: center;
@@ -137,11 +137,13 @@ td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
     box-shadow: 0 4px 0 rgba(0,0,0,0.3);
 }
 
+/* Hover del botón reina */
 .btn-reina:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 0 rgba(0,0,0,0.3);
 }
 
+/* Estado activo del botón reina */
 .btn-reina.activo {
     border-color: #fff;
     background: #e09020;
@@ -149,6 +151,7 @@ td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
     box-shadow: 0 2px 0 rgba(0,0,0,0.3);
 }
 
+/* Imagen preview dentro del botón */
 .btn-reina .preview {
     width: 36px;
     height: 36px;
@@ -158,25 +161,27 @@ td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
     flex-shrink: 0;
 }
 
-/* Contador solución */
+/* Contenedor del contador */
 .solution-info {
     text-align: center;
     color: white;
     font-family: 'Fredoka One', cursive;
 }
 
+/* Número de soluciones */
 .sol-counter {
     font-size: 28px;
     display: block;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
+/* Etiqueta del contador */
 .sol-label {
     font-size: 12px;
     opacity: 0.85;
 }
 
-/* Botones naranja */
+/* Botones naranjas */
 .btn-orange {
     width: 100%;
     padding: 11px;
@@ -193,7 +198,10 @@ td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
     text-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
 
+/* Hover botón naranja */
 .btn-orange:hover  { filter: brightness(1.1); transform: translateY(-2px); }
+
+/* Click botón naranja */
 .btn-orange:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.35); }
 
 /* Botón rojo */
@@ -213,15 +221,19 @@ td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
     text-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
 
+/* Hover botón rojo */
 .btn-red:hover  { filter: brightness(1.1); transform: translateY(-2px); }
+
+/* Click botón rojo */
 .btn-red:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--rojo-btn-dark); }
 
-/* Flechas navegación */
+/* Fila de navegación */
 .nav-row {
     display: flex;
     gap: 8px;
 }
 
+/* Botones de flechas */
 .btn-arrow {
     flex: 1;
     padding: 11px 0;
@@ -235,10 +247,13 @@ td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
     transition: all 0.12s;
 }
 
+/* Hover flechas */
 .btn-arrow:hover  { filter: brightness(1.15); transform: translateY(-2px); }
+
+/* Click flechas */
 .btn-arrow:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.35); }
 
-/* Colores */
+/* Contenedor de colores */
 .color-row {
     display: flex;
     align-items: center;
@@ -246,6 +261,7 @@ td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
     gap: 6px;
 }
 
+/* Etiquetas de color */
 .color-row label {
     color: white;
     font-size: 12px;
@@ -253,6 +269,7 @@ td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
     white-space: nowrap;
 }
 
+/* Input tipo color */
 .color-row input[type="color"] {
     width: 34px;
     height: 28px;
@@ -263,9 +280,7 @@ td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
     background: transparent;
 }
 
-/* =========================
-   PANEL INFERIOR (REINAS DISPONIBLES)
-   ========================= */
+/* Contenedor inferior de reinas disponibles */
 .panel-inferior {
     background: var(--naranja-panel);
     border-radius: 14px;
@@ -278,11 +293,13 @@ td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
     justify-content: center;
 }
 
+/* Contenedor de iconos de reinas */
 .reinas-disponibles {
     display: flex;
     gap: 4px;
 }
 
+/* Icono de reina */
 .reina-ico {
     width: 56px;
     height: 56px;
@@ -294,10 +311,12 @@ td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
     transition: opacity 0.2s;
 }
 
+/* Estado cuando la reina ya fue usada */
 .reina-ico.usada {
     opacity: 0.25;
 }
 
+/* Imagen de reina dentro de celda */
 .img-reina {
     position: absolute;
     inset: 6px;
@@ -307,4 +326,3 @@ td.hover-mark { background-color: rgba(231, 60, 60, 0.55) !important; }
     pointer-events: none;
     animation: popIn 0.2s cubic-bezier(0.34,1.56,0.64,1);
 }
-
