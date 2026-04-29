@@ -1,12 +1,8 @@
-// =========================
-//   ESTADO GLOBAL
-// =========================
 let imagenActual = "reina.png";
 let contador = 0;
-let solActual = 0;   // índice en SOLUCIONES (0-based)
+let solActual = 0;
 
 // Las 92 soluciones del problema de las 8 reinas
-// Cada array: columna de la reina en la fila [0..7]
 const SOLUCIONES = [
     [0,4,7,5,2,6,1,3],[0,5,7,2,6,3,1,4],[0,6,3,5,7,1,4,2],[0,6,4,7,1,3,5,2],
     [1,3,5,7,2,0,6,4],[1,4,6,0,2,7,5,3],[1,4,6,3,0,7,5,2],[1,5,0,6,3,7,2,4],
@@ -33,9 +29,7 @@ const SOLUCIONES = [
     [7,3,0,2,5,1,6,4],[7,4,2,5,1,6,0,3]
 ];
 
-// =========================
-//   GENERAR TABLERO
-// =========================
+//GENERAR TABLERO
 function generarTablero() {
     const table = document.getElementById("tablero");
     table.innerHTML = "";
@@ -55,9 +49,7 @@ function generarTablero() {
     generarIconosInferiores();
 }
 
-// =========================
-//   ÍCONOS INFERIORES
-// =========================
+//ÍCONOS INFERIORES
 function generarIconosInferiores() {
     const cont = document.getElementById("reinas-disponibles");
     cont.innerHTML = "";
@@ -79,9 +71,7 @@ function actualizarIconos() {
     }
 }
 
-// =========================
-//   CLICK EN CELDA
-// =========================
+//CLICK EN CELDA
 function cellClick(celda) {
     if (!celda.classList.contains("reina")) {
         if (contador < 8) {
@@ -103,9 +93,7 @@ function cellClick(celda) {
 }
 
 
-// =========================
-//   HOVER
-// =========================
+//HOVER
 function cambiar(r, c) {
     const table = document.getElementById("tablero");
     limpiar();
@@ -130,15 +118,13 @@ function limpiar() {
     document.querySelectorAll(".hover-mark").forEach(td => td.classList.remove("hover-mark"));
 }
 
-// =========================
-//   ELEGIR TIPO DE REINA
-// =========================
+//ELEGIR TIPO DE REINA
 function elegirReina(nombre, btn) {
     imagenActual = nombre;
     document.querySelectorAll(".btn-reina").forEach(b => b.classList.remove("activo"));
     btn.classList.add("activo");
 
-    // Actualizar imágenes ya colocadas
+    //Actualizar imágenes ya colocadas
     document.querySelectorAll(".img-reina").forEach(img => {
         img.src = `IMG/${nombre}`;
     });
@@ -146,9 +132,7 @@ function elegirReina(nombre, btn) {
     actualizarIconos();
 }
 
-// =========================
-//   COLORES DEL TABLERO
-// =========================
+//COLORES DEL TABLERO
 function cambiarColor1(valor) {
     document.documentElement.style.setProperty("--color-celda1", valor);
 }
@@ -156,9 +140,7 @@ function cambiarColor2(valor) {
     document.documentElement.style.setProperty("--color-celda2", valor);
 }
 
-// =========================
-//   REINICIAR
-// =========================
+//REINICIAR
 function reiniciarTablero() {
     const table = document.getElementById("tablero");
     for (let r = 0; r < 8; r++) {
@@ -173,9 +155,7 @@ function reiniciarTablero() {
     limpiar();
     actualizarIconos();
 }
-// =========================
-//   SOLUCIONES (92)
-// =========================
+//SOLUCIONES (92)
 function actualizarContador() {
     document.getElementById("sol-counter").textContent =
         `${solActual + 1} / ${SOLUCIONES.length}`;
@@ -203,9 +183,7 @@ function solSiguiente() {
     mostrarSolucionActual();
 }
 
-// =========================
-//   INIT
-// =========================
+//INIT
 document.addEventListener("DOMContentLoaded", () => {
     generarTablero();
     actualizarContador();
